@@ -31,5 +31,8 @@
     "mocha": "^3.0.2",
     "mongodb": "^2.2.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "coveralls": "^2.11.12",
+    "mocha-lcov-reporter": "^1.2.0"
+  }
 }
