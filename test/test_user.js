@@ -1,18 +1,29 @@
 'use strict'; 
 
-var assert = require('assert')
 var TestHelper = require('./test_helper')
 var User = require('../models/user')
+var expect = require('chai').expect;
 
 
-var u = new User({ name: "prueba",email: "example@example.com" })
+describe("User",function() {
+    beforeEach(function() {
+        TestHelper.dropDatabase()
+    });
+    var user = new User({ name: "prueba",
+                        email: "example@example.com" })
+    it(".initialize",function(){ 
+        expect(user.name).to.equal("prueba")
+        expect(user.email).to.equal("example@example.com")
+    })
 
-TestHelper.dropDatabase()
+    it(".save",function(){
+        expect(user.save()).to.equal(true)
+    })
 
-assert.equal(u.name,"prueba")
-assert.equal(u.email,"example@example.com")
-assert.equal(u.save(),true)
-
-User.findOne({"email": "example@example.com"},function(doc) {
-    assert.equal(doc.email,"example@example.com")
+    it("User.findOne",function(){
+        user.save()
+        User.findOne({"email":"example@example.com"},function(doc){
+            expect(doc.email).to.equal("example@example.com")
+        })
+    })
 })
