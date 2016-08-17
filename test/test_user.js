@@ -19,7 +19,12 @@ describe("User",function() {
     })
 
     it("#save",function(done){
-        user.save(done)
+        user.save(function(err,doc){
+            assert.equal(doc.name,"prueba");
+            assert.equal(doc.email,"example@example.com");
+            assert.equal(doc._id._bsontype,"ObjectID");
+            done();
+        })
     })
 
     it("User.find",function(done){
