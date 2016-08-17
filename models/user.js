@@ -15,19 +15,20 @@ User.prototype.save = function(callback) {
         var doc = { "name":  this.name,
             "email": this.email
         }
-        collection.insert(doc)
+        collection.insert(doc,function(){
+            callback(null,doc)
+        })
         db.close();
-        return callback(null,doc)
     }.bind(this));
 }
 
-User.find = function(query,callback) { 
+User.findOne = function(query,callback) { 
     return MongoClient.connect(url, function(err, db) {
         if(err) return callback(err)
-        var collection = db.collection('users')
-        collection.find(query,function(err,docs) {
+            var collection = db.collection('users')
+        collection.findOne(query,function(err,docs) {
             if(err) return callback(err)
-            callback(null,docs);
+                callback(null,docs);
             db.close();
         })
     });

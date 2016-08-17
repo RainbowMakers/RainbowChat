@@ -23,7 +23,12 @@ describe("User",function() {
     })
 
     it("User.find",function(done){
-        user.save(function(){})
-        User.find({"email":"example@example.com"}, done)
+        user.save(function(){
+            User.findOne({"email":"example@example.com"}, function(err,doc){
+                assert.equal(doc.name,"prueba");
+                assert.equal(doc.email,"example@example.com");
+                done();
+            })
+        })
     })
 })
