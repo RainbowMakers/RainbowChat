@@ -25,10 +25,10 @@ User.prototype.save = function(callback) {
 User.findOne = function(query,callback) { 
     return MongoClient.connect(url, function(err, db) {
         if(err) return callback(err)
-            var collection = db.collection('users')
+        var collection = db.collection('users')
         collection.findOne(query,function(err,docs) {
             if(err) return callback(err)
-                callback(null,docs);
+            callback(null,docs);
             db.close();
         })
     });
