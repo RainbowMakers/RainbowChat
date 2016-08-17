@@ -8,29 +8,29 @@ var User = function(data) {
     this.email = data.email
 }
 
-User.prototype.save = function() {
-    var self = this;
-    MongoClient.connect(url, function(err, db) {
-        assert.equal(null, err);
+User.prototype.save = function(callback) {
+    return MongoClient.connect(url, function(err, db) {
+        if(err) return callback(err)
         var collection = db.collection('users')
-        collection.insert({ "name":  self.name,
-                          "email": self.email
-        })
+        var doc = { "name":  this.name,
+            "email": this.email
+        }
+        collection.insert(doc)
         db.close();
-    });
-    return true;
+        return callback(null,doc)
+    }.bind(this));
 }
 
 User.findOne = function(query,callback) { 
-    MongoClient.connect(url, function(err, db) {
-        assert.equal(null, err);
+    return MongoClient.connect(url, function(err, db) {
+        if(err) return callback(err)
         var collection = db.collection('users')
         collection.findOne(query,function(err,doc) {
-            assert.equal(null, err);
-            callback(doc);
+            if(err) return callback(err)
+            return callback(null,doc);
             db.close();
         })
-    });
+    }.bind(this));
 }
 
 module.exports = User;
