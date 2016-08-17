@@ -22,8 +22,8 @@ describe("User",function() {
         user.save(done)
     })
 
-    it("User.findOne",function(done){
-        user.save(done)
-        User.findOne({"email":"example@example.com"}, done)
+    it("User.find",function(done){
+        user.save(function(){})
+        User.find({"email":"example@example.com"}, done)
     })
 })

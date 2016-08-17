@@ -21,16 +21,16 @@ User.prototype.save = function(callback) {
     }.bind(this));
 }
 
-User.findOne = function(query,callback) { 
+User.find = function(query,callback) { 
     return MongoClient.connect(url, function(err, db) {
         if(err) return callback(err)
         var collection = db.collection('users')
-        collection.findOne(query,function(err,doc) {
+        collection.find(query,function(err,docs) {
             if(err) return callback(err)
-            return callback(null,doc);
+            callback(null,docs);
             db.close();
         })
-    }.bind(this));
+    });
 }
 
 module.exports = User;
