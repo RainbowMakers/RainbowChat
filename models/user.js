@@ -1,6 +1,5 @@
 'use strict'; 
-var MongoClient = require('mongodb').MongoClient
-var url = 'mongodb://localhost:27017/RainbowEcommerce';
+var database = require('../database')
 var assert = require("assert")
 
 var User = function(data) {
@@ -9,8 +8,8 @@ var User = function(data) {
 }
 
 User.prototype.save = function(callback) {
-    return MongoClient.connect(url, function(err, db) {
-        if(err) return callback(err)
+    database.connect(function(err,db) {
+        var self = this;
         var collection = db.collection('users')
         var doc = { "name":  this.name,
             "email": this.email
@@ -18,20 +17,17 @@ User.prototype.save = function(callback) {
         collection.insert(doc,function(){
             callback(null,doc)
         })
-        db.close();
-    }.bind(this));
+    }.bind(this))
 }
 
 User.findOne = function(query,callback) { 
-    return MongoClient.connect(url, function(err, db) {
-        if(err) return callback(err)
+    database.connect(function(err,db) {
         var collection = db.collection('users')
         collection.findOne(query,function(err,docs) {
             if(err) return callback(err)
             callback(null,docs);
-            db.close();
         })
-    });
+    })
 }
 
 module.exports = User;
