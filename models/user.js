@@ -9,7 +9,6 @@ var User = function(data) {
 
 User.prototype.save = function(callback) {
     database.connect(function(err,db) {
-        var self = this;
         var collection = db.collection('users')
         var doc = { "name":  this.name,
             "email": this.email
