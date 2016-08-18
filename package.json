@@ -4,10 +4,10 @@
   "description": "Ecommerce platform",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --reporter spec",
     "start": "node index.js",
-    "cover": "istanbul cover _mocha",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "cover": "NODE_ENV=test istanbul cover _mocha",
+    "coveralls": "NODE_ENV=test npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
