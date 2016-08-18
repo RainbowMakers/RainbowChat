@@ -6,8 +6,8 @@ var assert = require('chai').assert;
 
 
 describe("User",function() {
-    beforeEach(function() {
-        TestHelper.dropDatabase()
+    beforeEach(function(done) {
+        TestHelper.dropDatabase(done)
     });
 
     var user = new User({ name: "prueba",
