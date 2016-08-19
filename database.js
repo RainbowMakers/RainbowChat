@@ -14,18 +14,27 @@ var mongoUrl = function() {
     return 'mongodb://' + mongo_vars.host + '/' + mongo_vars.database
 }
 
-var connect = function(callback) {
-    MongoClient.connect(mongoUrl(), function(err, database) {
-        console.log("Connecting to mongodb ") + mongoUrl()
-        if( err ) console.log(err);
-        db = database;
-        callback(err,database);
+var connect = new Promise(
+    function (resolve, reject) {
+        MongoClient.connect(mongoUrl(), function(err, database) {
+            console.log("Connecting to mongodb ") + mongoUrl()
+            if(err) reject(err);
+            resolve(database);
+        })
+    }
+);
+
+var collection = function(coll) {
+    return new Promise(function(resolve,reject){
+        connect.then(function(db){
+            resolve(db.collection(coll))
+        })
     })
 }
-
 
 module.exports = {
     mongo_vars: mongo_vars,
     connect: connect,
+    collection: collection,
     url: mongoUrl
 }
