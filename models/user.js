@@ -1,7 +1,6 @@
 'use strict'; 
 var database = require('../database')
 var getCollection = database.getCollection('users')
-var assert = require("assert")
 
 var User = function(data) {
     this.name = data.name
