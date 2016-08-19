@@ -6,7 +6,7 @@ var url = require('url')
 var db;
 
 var mongo_vars = {
-    database: ("RainbowEcommerce" + '_' + process.env.NODE_ENV),
+    database: ("RainbowChat" + '_' + process.env.NODE_ENV),
     host: (process.env.MONGO_HOST || "localhost:27017")
 }
 

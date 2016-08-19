@@ -1,7 +1,7 @@
 {
   "name": "rainbow_ecommerce",
   "version": "0.0.1",
-  "description": "Ecommerce platform",
+  "description": "Chat platform",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --reporter spec",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RainbowMakers/RainbowEcommerce.git"
+    "url": "git+https://github.com/RainbowMakers/RainbowChat.git"
   },
   "keywords": [
     "rainbow",
@@ -22,9 +22,9 @@
   "author": "Rainbow Makers",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/RainbowMakers/RainbowEcommerce/issues"
+    "url": "https://github.com/RainbowMakers/RainbowChat/issues"
   },
-  "homepage": "https://github.com/RainbowMakers/RainbowEcommerce#readme",
+  "homepage": "https://github.com/RainbowMakers/RainbowChat#readme",
   "directories": {
     "test": "test"
   },
