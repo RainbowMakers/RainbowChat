@@ -24,7 +24,7 @@ var connect = new Promise(
     }
 );
 
-var collection = function(coll) {
+var getCollection = function(coll) {
     return new Promise(function(resolve,reject){
         connect.then(function(db){
             resolve(db.collection(coll))
@@ -35,6 +35,6 @@ var collection = function(coll) {
 module.exports = {
     mongo_vars: mongo_vars,
     connect: connect,
-    collection: collection,
+    getCollection: getCollection,
     url: mongoUrl
 }

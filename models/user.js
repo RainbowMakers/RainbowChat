@@ -1,6 +1,6 @@
 'use strict'; 
 var database = require('../database')
-var collection = database.collection('users')
+var getCollection = database.getCollection('users')
 var assert = require("assert")
 
 var User = function(data) {
@@ -9,7 +9,7 @@ var User = function(data) {
 }
 
 User.prototype.save = function(callback) {
-    collection.then(function(collection){
+    getCollection.then(function(collection){
         var doc = { "name":  this.name,
             "email": this.email
         }
@@ -20,7 +20,7 @@ User.prototype.save = function(callback) {
 }
 
 User.findOne = function(query,callback) { 
-    collection.then(function(collection){
+    getCollection.then(function(collection){
         collection.findOne(query,function(err,docs) {
             if(err) return callback(err)
             callback(null,docs);
