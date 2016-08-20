@@ -13,7 +13,7 @@ describe("User",function() {
     var user = new User({ name: "prueba",
                         email: "example@example.com" })
 
-    it("#initialize",function(){ 
+    it("#constructor",function(){ 
         assert.equal(user.name,"prueba")
         assert.equal(user.email,"example@example.com")
     })
