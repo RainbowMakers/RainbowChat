@@ -8,7 +8,7 @@ app.use(bodyParser.json())
 app.post('/api/chats', function (req, res) {
     var chat = new Chat(req.body)
     chat.save(function(err,doc){
-        res.send(201,doc)
+        res.status(201).send(doc)
     })
 });
 
