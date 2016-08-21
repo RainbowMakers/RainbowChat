@@ -2,7 +2,9 @@
 
 var TestHelper = require('./test_helper')
 var Chat = require('../models/chat')
-var assert = require('chai').assert;
+var chai = TestHelper.chai
+var assert = TestHelper.chai.assert
+
 
 describe("Chat",function() {
     beforeEach(function(done) {
@@ -34,14 +36,8 @@ describe("Chat",function() {
         })
     })
 
-    it("collection/count",function(done){
-        chat.save(function(){
-            Chat.collection.then(function(coll){
-                coll.count(function(err,val){
-                    assert(val,1)
-                    done()
-                })
-            })
-        })
+    it("collection/count",function(){
+        chat.save(function(){})
+        return assert.eventually.equal(Promise.resolve(Chat.count()), 1)
     })
 })

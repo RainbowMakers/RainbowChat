@@ -1,11 +1,8 @@
-var chai = require('chai')
-var assert = chai.assert
-var chaiHttp = require('chai-http');
 var server = require('../server')
 var Chat = require('../models/chat.js')
 var TestHelper = require('./test_helper')
-
-chai.use(chaiHttp);
+var chai = TestHelper.chai
+var assert = TestHelper.chai.assert
 
 describe("POST /api/chats",function() {
     beforeEach(function(done) {
@@ -17,16 +14,11 @@ describe("POST /api/chats",function() {
             'channel': "sarasa"
         })
     }
+    var statusCode = testReq().then(function(res){
+        return res.status 
+    }) 
 
-    it("should return 201 when chat is created",function(done){
-        testReq().end(function(err,res){
-            assert.equal(res.status,201)
-            Chat.collection.then(function(coll){
-                coll.count(function(err,val){
-                    assert.equal(val,1)
-                    done()
-                })
-            })
-        })
+    it("should return 201 when chat is created",function(){
+        return assert.eventually.equal(Promise.resolve(statusCode),201)
     })
 })
