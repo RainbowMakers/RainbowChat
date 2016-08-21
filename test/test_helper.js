@@ -1,16 +1,15 @@
 'use strict'; 
 var MongoClient = require('mongodb').MongoClient
 var assert = require('assert')
-var url = 'mongodb://localhost:27017/RainbowChat';
+var database = require('../database')
+var url = 'mongodb://localhost:27017/RainbowChat_test';
 
 var TestHelper = {}
 TestHelper.dropDatabase = function(done) {
-    MongoClient.connect(url, function(err, db) {
-        assert.equal(null, err);
-        db.dropDatabase()
-        db.close();
+    database.drop().then(function(result){
+        assert(result)
         done()
-    });
+    })
 }
 
 module.exports = TestHelper;

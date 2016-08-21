@@ -2,10 +2,10 @@
   "name": "rainbow_ecommerce",
   "version": "0.0.1",
   "description": "Chat platform",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --reporter spec",
-    "start": "node index.js",
+    "start": "node app.js",
     "cover": "NODE_ENV=test istanbul cover _mocha",
     "coveralls": "NODE_ENV=test npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
@@ -29,7 +29,9 @@
     "test": "test"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "express": "^4.14.0",
     "mocha": "^3.0.2",
     "mongodb": "^2.2.5"

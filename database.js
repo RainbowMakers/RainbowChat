@@ -32,8 +32,20 @@ var getCollection = function(coll) {
     })
 }
 
+var dropDatabase = function(){
+    return new Promise(function(resolve,reject) {
+        connect.then(function(db){
+            db.dropDatabase(function(err,result){
+                if(err) reject(err)
+                resolve(result)
+            })
+        })
+    })
+}
+
 module.exports = {
     mongo_vars: mongo_vars,
+    drop: dropDatabase,
     connect: connect,
     getCollection: getCollection,
     url: mongoUrl

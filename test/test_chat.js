@@ -33,4 +33,15 @@ describe("Chat",function() {
             })
         })
     })
+
+    it("collection/count",function(done){
+        chat.save(function(){
+            Chat.collection.then(function(coll){
+                coll.count(function(err,val){
+                    assert(val,1)
+                    done()
+                })
+            })
+        })
+    })
 })

@@ -15,6 +15,7 @@ Chat.prototype.save = function(callback) {
     }.bind(this))
 }
 
+Chat.collection = getCollection
 
 Chat.findOne = function(query,callback) { 
     getCollection.then(function(collection){
