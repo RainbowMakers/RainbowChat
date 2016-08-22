@@ -2,7 +2,7 @@
 
 var TestHelper = require('./test_helper')
 var User = require('../models/user')
-var assert = require('chai').assert;
+var assert = TestHelper.chai.assert
 
 
 describe("User",function() {
