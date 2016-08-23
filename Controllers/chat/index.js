@@ -1,9 +1,15 @@
 var express = require('express'),
 	app = module.exports = express(),
+	//http = require('http').Server(app),
  	engines = require('consolidate'),
+ 	//io = require('socket.io')(http),
  	chat = require('../../models/chat');
 
-
+/*
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+*/
 app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');

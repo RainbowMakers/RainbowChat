@@ -1,6 +1,16 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+
 
 var routes = require('./Controllers/routes');
 
@@ -19,4 +29,13 @@ app.post('/api/chats', function (req, res) {
     });
 });
 
-module.exports = app;
+
+var runServerChat = function(puerto) {
+	http.listen(puerto, function(){
+	  console.log('listening on *:' + puerto);
+	});
+};
+
+exports.app = app;
+
+exports.runServerChat = runServerChat;
