@@ -5,10 +5,15 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
+	console.log('Se ha conectado un usuario');
+
+	socket.on('envio de mensaje', function(msj){
+		io.emit('envio de mensaje', msj);
+	})
+
+	socket.on('disconnect', function(){
+		console.log('Se ha desconectado un usuario');
+	});
 });
 
 

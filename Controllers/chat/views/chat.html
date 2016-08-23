@@ -11,20 +11,36 @@
 	}
 	</style>
 
-	<script src="../../../socket.io/socket.io.js"></script>
+	<script src="socket.io/socket.io.js"></script>
 	<script>
-	  var socket = io();
+		var socket = io();
 	</script>
+	 	
+	<script>
+		var sendMsj = function(){
+			var form = form = document.getElementById('form-chat');
+			var msjToSend = form['msj-to-send'].value;
+			form['msj-to-send'].value = '';
+			socket.emit('envio de mensaje', msjToSend);			
+		} 
+
+		
+		socket.on('envio de mensaje', function(msj){
+			document.getElementById('container-msjs').innerHTML += '<li>' + msj + '</li>';
+		})
+		
+	</script>
+	
 </head>
 <body>
-<div id="container-msjs" class="container-msjs">
+<ul id="container-msjs" class="container-msjs">
 	
 
-</div>
+</ul>
 
-<form method="post" action="" onsubmit="sendMsj(); return false;">
+<form method="post" action="" name="form-chat" id="form-chat" onsubmit="sendMsj(); return false;">
 	<div>
-		<textarea id="msj-to-send" placeholder="Ingrese su mensaje y presione enviar" rows="10" cols="50"></textarea>
+		<textarea id="msj-to-send" name="msj-to-send" placeholder="Ingrese su mensaje y presione enviar" rows="10" cols="50"></textarea>
 	</div>
 	
 	<div>	
