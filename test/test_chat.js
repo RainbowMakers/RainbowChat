@@ -36,8 +36,12 @@ describe("Chat",function() {
         })
     })
 
-    it("collection/count",function(){
-        chat.save(function(){})
-        return assert.eventually.equal(Promise.resolve(Chat.count()), 1)
+    it("collection/count",function(done){
+        chat.save(function(){
+            Chat.count(function(result){
+                assert.equal(result,1)
+                done()
+            })
+        })
     })
 })

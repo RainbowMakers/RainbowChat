@@ -17,17 +17,13 @@ Chat.prototype.save = function(callback) {
 
 Chat.collection = getCollection
 
-Chat.count = function(){
-    return new Promise(
-        function(resolve,reject){
-            getCollection.then(function(collection){
-                collection.count(function(err,result){
-                    if(err) reject(err)
-                    resolve(result)
-                })
-            })
-        }
-    )
+Chat.count = function(callback){
+    getCollection.then(function(collection){
+        collection.count(function(err,result){
+            if(err) throw err
+                callback(result)
+        })
+    })
 } 
 
 Chat.findOne = function(query,callback) { 
