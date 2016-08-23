@@ -1,32 +1,32 @@
 'use strict'; 
 var database = require('../database')
-var getCollection = database.getCollection('chats')
+var getCollection = database.getCollection('channels')
 
-var Chat = function(data) {
-    this.channel = data.channel
+var Channel = function(data) {
+    this.name = data.name
 }
 
-Chat.prototype.save = function(callback) {
+Channel.prototype.save = function(callback) {
     getCollection.then(function(collection){
-        var doc = { "channel":  this.channel }
+        var doc = { "name":  this.name }
         collection.insert(doc,function(){
             callback(null,doc)
         })
     }.bind(this))
 }
 
-Chat.collection = getCollection
+Channel.collection = getCollection
 
-Chat.count = function(callback){
+Channel.count = function(callback){
     getCollection.then(function(collection){
         collection.count(function(err,result){
             if(err) throw err
-                callback(result)
+            callback(result)
         })
     })
 } 
 
-Chat.findOne = function(query,callback) { 
+Channel.findOne = function(query,callback) { 
     getCollection.then(function(collection){
         collection.findOne(query,function(err,docs) {
             if(err) return callback(err)
@@ -35,4 +35,4 @@ Chat.findOne = function(query,callback) {
     })
 }
 
-module.exports = Chat
+module.exports = Channel

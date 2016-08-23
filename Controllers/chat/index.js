@@ -3,7 +3,7 @@ var express = require('express'),
 	//http = require('http').Server(app),
  	engines = require('consolidate'),
  	//io = require('socket.io')(http),
- 	chat = require('../../models/chat');
+ 	channel = require('../../models/channel');
 
 /*
 io.on('connection', function(socket){
