@@ -1,6 +1,6 @@
 var routes = {
 		home: require('./home'),
-		chat: './Controllers/chat',
+		chat: require('./chat'),
 		pageNotFound: './Controllers/pageNotFound' 
 
 	
