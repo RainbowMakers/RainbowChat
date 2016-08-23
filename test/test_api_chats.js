@@ -1,4 +1,4 @@
-var server = require('../server')
+var server = require('../server').app
 var Chat = require('../models/chat.js')
 var TestHelper = require('./test_helper')
 var chai = TestHelper.chai
@@ -18,7 +18,10 @@ describe("POST /api/chats",function() {
         return res.status 
     }) 
 
-    it("should return 201 when chat is created",function(){
-        return assert.eventually.equal(Promise.resolve(statusCode),201)
+    it("should return 201 when chat is created",function(done){
+        testReq().end(function(err,res){
+            assert.equal(res.status,201)
+            done();
+        })
     })
 })

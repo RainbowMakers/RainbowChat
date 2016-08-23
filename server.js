@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var Chat = require('./models/chat')
 
 io.on('connection', function(socket){
 	console.log('Se ha conectado un usuario');
