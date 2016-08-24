@@ -3,7 +3,6 @@ var app = express();
 var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var Channel = require('./models/channel')
 
 io.on('connection', function(socket){
 	console.log('Se ha conectado un usuario');
@@ -19,7 +18,7 @@ io.on('connection', function(socket){
 
 
 var routes = require('./Controllers/routes');
-
+var apiRoutes = require('./api')
 
 app.use(bodyParser.json());
 
@@ -28,18 +27,12 @@ app.use(routes.home);
 app.use(routes.chat);
 /*******/
 
-app.post('/api/channels', function (req, res) {
-    var chat = new Channel(req.body)
-    chat.save(function(err,doc){
-        res.status(201).send(doc)
-    });
-});
-
+app.use(apiRoutes)
 
 var runServerChat = function(puerto) {
     http.listen(puerto, function(){
-	  console.log('listening on *:' + puerto);
-	});
+        console.log('listening on *:' + puerto);
+    });
 };
 
 exports.app = app;
