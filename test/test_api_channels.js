@@ -5,8 +5,8 @@ var chai = TestHelper.chai
 var assert = TestHelper.chai.assert
 
 describe("api/",function(){
-    beforeEach(function(done) {
-        TestHelper.dropDatabase(done)
+    beforeEach(function() {
+        return assert.eventually.equal(Promise.resolve(TestHelper.dropDatabase()))
     });
 
     describe("GET /api/channels",function(){
