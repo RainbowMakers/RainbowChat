@@ -36,6 +36,15 @@ describe("Channel",function() {
         })
     })
 
+    it("Channel.all",function(done){
+        channel.save(function(){
+            Channel.all(function(err,docs){
+                assert.equal(docs[0].name,"sarasa")
+                done();
+            })
+        })
+    })
+
     it("collection/count",function(done){
         channel.save(function(){
             Channel.count(function(result){

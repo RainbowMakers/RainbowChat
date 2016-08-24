@@ -17,6 +17,14 @@ Channel.prototype.save = function(callback) {
 
 Channel.collection = getCollection
 
+Channel.all = function(callback){
+    getCollection.then(function(collection){
+        collection.find({}).toArray(function(err,docs) {
+            callback(err,docs)
+        })
+    })
+}
+
 Channel.count = function(callback){
     getCollection.then(function(collection){
         collection.count(function(err,result){
