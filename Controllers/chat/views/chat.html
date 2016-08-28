@@ -17,17 +17,27 @@
 	</script>
 	 	
 	<script>
+		socket.emit('suscribe', 'roomOne');
+
 		var sendMsj = function(){
 			var form = form = document.getElementById('form-chat');
 			var msjToSend = form['msj-to-send'].value;
 			form['msj-to-send'].value = '';
-			socket.emit('envio de mensaje', msjToSend);			
+			
+			socket.emit('envio de mensaje', {'room': 'roomOne', msj: msjToSend});	
+
 		} 
 
-		
-		socket.on('envio de mensaje', function(msj){
+		var desuscribir = function(room){
+			socket.emit('unsuscribe',room);
+		}
+
+		socket.on('envio de mensaje para frontend', function(msj){
 			document.getElementById('container-msjs').innerHTML += '<li>' + msj + '</li>';
 		})
+
+
+
 		
 	</script>
 	
@@ -47,5 +57,7 @@
 		<button>Enviar</button>
 	</div>
 </form>
+
+<button onclick="desuscribir('roomOne');">Desuscribirse de la roomOne</button>
 </body>
 </html>
