@@ -10,7 +10,6 @@ Channel.prototype.save = function(callback) {
     getCollection.then(function(collection){
         var doc = { "name":  this.name }
         collection.insertOne(doc,{w: 1},function(){
-            console.log('savedd ' + doc._id)
             callback(null,doc)
         })
     }.bind(this))
