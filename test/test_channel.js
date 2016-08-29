@@ -27,26 +27,28 @@ describe("Channel",function() {
         })
     })
 
-    it("Channel.find",function(done){
-        channel.save(function(){
+    context('exists documents',function(){
+        beforeEach(function(done){
+            channel.save(function(){
+                done();
+            })
+        })
+
+        it("Channel.find",function(done){
             Channel.findOne({"name":"sarasa"}, function(err,doc){
                 assert.equal(doc.name,"sarasa");
                 done();
             })
         })
-    })
 
-    it("Channel.all",function(done){
-        channel.save(function(){
+        it("Channel.all",function(done){
             Channel.all(function(err,docs){
                 assert.equal(docs[0].name,"sarasa")
                 done();
             })
         })
-    })
 
-    it("collection/count",function(done){
-        channel.save(function(){
+        it("collection/count",function(done){
             Channel.count(function(result){
                 assert.equal(result,1)
                 done()
