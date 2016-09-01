@@ -11,7 +11,6 @@ Channel.prototype.save = function(){
         getCollection.then(function(collection){
             var doc = { "name":  this.name }
             collection.insertOne(doc,function(err,cursor){
-                debugger
                 this._id = cursor.insertedId
                 resolve(this)
             }.bind(this))
