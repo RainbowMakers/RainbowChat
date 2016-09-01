@@ -6,14 +6,19 @@ var Channel = function(data) {
     this.name = data.name
 }
 
-Channel.prototype.save = function(callback) {
-    getCollection.then(function(collection){
-        var doc = { "name":  this.name }
-        collection.insertOne(doc,{w: 1},function(){
-            callback(null,doc)
-        })
+Channel.prototype.save = function(){
+    return new Promise(function(resolve,reject){
+        getCollection.then(function(collection){
+            var doc = { "name":  this.name }
+            collection.insertOne(doc,function(err,cursor){
+                debugger
+                this._id = cursor.insertedId
+                resolve(this)
+            }.bind(this))
+        }.bind(this))
     }.bind(this))
 }
+
 
 Channel.collection = getCollection
 
