@@ -17,9 +17,9 @@ router.get('/channel/:id', function (req, res) {
 
 router.post('/channels', function (req, res) {
     var channel = new Channel(req.body)
-    channel.save(function(err,doc){
+    channel.save().then(function(doc){
         res.status(201).send(doc)
-    });
+    })
 });
 
 module.exports = router

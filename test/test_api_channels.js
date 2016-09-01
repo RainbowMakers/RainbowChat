@@ -42,7 +42,7 @@ describe("api/",function(){
             name: 'sarasa'
         }) 
         beforeEach(function(done){
-            channel.save(function(err,doc){
+            channel.save().then(function(doc){
                 done();
             })
         })
