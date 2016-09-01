@@ -27,32 +27,32 @@ describe("Channel",function() {
         return assert.eventually.deepPropertyVal(channel.save(),"_id._bsontype","ObjectID")
     })
 
-    //context('exists documents',function(){
-        //beforeEach(function(done){
-            //channel.save(function(){
-                //done();
-            //})
-        //})
+    context('exists documents',function(){
+        beforeEach(function(done){
+            channel.save().then(function(){
+                done();
+            })
+        })
 
-        //it("Channel.find",function(done){
-            //Channel.findOne({"name":"sarasa"}, function(err,doc){
-                //assert.equal(doc.name,"sarasa");
-                //done();
-            //})
-        //})
+        it("Channel.find",function(done){
+            Channel.findOne({"name":"sarasa"}, function(err,doc){
+                assert.equal(doc.name,"sarasa");
+                done();
+            })
+        })
 
-        //it("Channel.all",function(done){
-            //Channel.all(function(err,docs){
-                //assert.equal(docs[0].name,"sarasa")
-                //done();
-            //})
-        //})
+        it("Channel.all",function(done){
+            Channel.all(function(err,docs){
+                assert.equal(docs[0].name,"sarasa")
+                done();
+            })
+        })
 
-        //it("collection/count",function(done){
-            //Channel.count(function(result){
-                //assert.equal(result,1)
-                //done()
-            //})
-        //})
-    //})
+        it("collection/count",function(done){
+            Channel.count(function(result){
+                assert.equal(result,1)
+                done()
+            })
+        })
+    })
 })
