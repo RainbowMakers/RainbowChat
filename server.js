@@ -10,15 +10,29 @@ var apiRoutes = require('./api')
 io.on('connection', function(socket){
 	console.log('Se ha conectado un usuario');
 
-	socket.on('envio de mensaje', function(msj){
-		io.emit('envio de mensaje', msj);
+	socket.on('suscribe',function(room){
+		console.log('participando del room ', room);
+		socket.join(room);
 	})
 
-	socket.on('disconnect', function(){
-		console.log('Se ha desconectado un usuario');
+	socket.on('unsuscribe', function(room){
+		socket.leave(room);
+		console.log('se desuscribio del room ', room);
+	})
+
+	socket.on('envio de mensaje', function(data){
+	     io.sockets.in(data.room).emit('envio de mensaje para frontend', data.msj);
 	});
 });
 
+/*app.post('/send/:room/', function(req, res) {
+    var room = req.params.room
+        message = req.body;
+
+    io.sockets.in(room).emit('message', { room: room, message: message });
+
+    res.end('message sent');
+});*/
 
 app.use(morgan('combined'));
 app.use(bodyParser.json());
