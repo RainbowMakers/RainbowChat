@@ -48,5 +48,6 @@ module.exports = {
     drop: dropDatabase,
     connect: connect,
     getCollection: getCollection,
-    url: mongoUrl
+    url: mongoUrl,
+    MongoClient: MongoClient
 }

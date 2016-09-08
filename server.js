@@ -5,7 +5,8 @@ var http = require('http').Server(app);
 var morgan = require('morgan')
 var io = require('socket.io')(http);
 var routes = require('./Controllers/routes');
-var apiRoutes = require('./api')
+var apiRoutes = require('./api');
+var funciones = require('./lib/date');
 
 io.on('connection', function(socket){
 	console.log('Se ha conectado un usuario');
@@ -21,7 +22,11 @@ io.on('connection', function(socket){
 	})
 
 	socket.on('envio de mensaje', function(data){
-	     io.sockets.in(data.room).emit('envio de mensaje para frontend', data.msj);
+	    io.sockets.in(data.room).emit('envio de mensaje para frontend', data.msj);
+
+	    var current_time = funciones.getDateTime();
+	    
+	    console.log(current_time);
 	});
 });
 
