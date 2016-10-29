@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var morgan = require('morgan')
 var io = require('socket.io')(http);
-var routes = require('./Controllers/routes');
 var apiRoutes = require('./api')
 
 io.on('connection', function(socket){
@@ -22,11 +21,6 @@ io.on('connection', function(socket){
 
 app.use(morgan('combined'));
 app.use(bodyParser.json());
-
-/*views*/
-app.use(routes.home);
-app.use(routes.chat);
-/*******/
 
 app.use(apiRoutes)
 
