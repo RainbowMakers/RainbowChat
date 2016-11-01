@@ -36,6 +36,7 @@
     "chai-http": "^3.0.0",
     "consolidate": "^0.14.1",
     "express": "^4.14.0",
+    "http-proxy": "^1.15.2",
     "mocha": "^3.0.2",
     "mongodb": "^2.2.5",
     "morgan": "^1.7.0",

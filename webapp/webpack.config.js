@@ -7,6 +7,12 @@ module.exports = {
         'webpack/hot/dev-server',
         './components/index'
     ],
+    proxy: {
+        '/api': {
+            target: 'http://www.timeapi.org/utc/now',
+            secure: false
+        }
+    },
     output: {
         path: __dirname,
         filename: 'bundle.js',
@@ -28,5 +34,5 @@ module.exports = {
                 include: path.join(__dirname, 'components')
             }
         ]
-    }
-};
+    },
+}

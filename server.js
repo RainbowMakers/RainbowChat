@@ -1,9 +1,11 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var http = require('http').Server(app);
+var http = require('http')
+var server = http.Server(app);
+var httpProxy = require('http-proxy');
 var morgan = require('morgan')
-var io = require('socket.io')(http);
+var io = require('socket.io')(server);
 var apiRoutes = require('./api')
 
 io.on('connection', function(socket){
@@ -18,15 +20,25 @@ io.on('connection', function(socket){
 	});
 });
 
+var apiProxy = httpProxy.createProxyServer();
+
+app.get("/", function(req, res){ 
+    apiProxy.web(req, res, { target: 'http://localhost:5000/*' });
+});
+
+app.get("/static/bundle.js", function(req, res){ 
+    apiProxy.web(req, res, { target: 'http://localhost:5000/' });
+});
 
 app.use(morgan('combined'));
 app.use(bodyParser.json());
+
 
 app.use(apiRoutes)
 
 
 var runServerChat = function(puerto) {
-    http.listen(puerto, function(){
+    server.listen(puerto, function(){
         console.log('listening on *:' + puerto);
     });
 };
