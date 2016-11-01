@@ -1,7 +1,7 @@
 'use strict'; 
 
 var TestHelper = require('./test_helper')
-var Channel = require('../models/channel')
+var Channel = require('../models/room')
 var chai = TestHelper.chai
 var assert = TestHelper.chai.assert
 
@@ -11,16 +11,16 @@ describe("Channel",function() {
         TestHelper.dropDatabase(done)
     });
 
-    var channel = new Channel({
+    var room = new Channel({
         name: 'sarasa'
     }) 
 
     it("#constructor",function(){ 
-        assert.equal(channel.name,"sarasa")
+        assert.equal(room.name,"sarasa")
     })
 
     it("#save",function(done){
-        channel.save(function(err,doc){
+        room.save(function(err,doc){
             assert.equal(doc.name,"sarasa");
             assert.equal(doc._id._bsontype,"ObjectID");
             done();
@@ -29,7 +29,7 @@ describe("Channel",function() {
 
     context('exists documents',function(){
         beforeEach(function(done){
-            channel.save(function(){
+            room.save(function(){
                 done();
             })
         })

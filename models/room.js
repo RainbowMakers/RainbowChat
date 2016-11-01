@@ -1,6 +1,6 @@
 'use strict'; 
 var database = require('../database')
-var getCollection = database.getCollection('channels')
+var getCollection = database.getCollection('rooms')
 
 var Channel = function(data) {
     this.name = data.name

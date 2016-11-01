@@ -1,7 +1,7 @@
 var express = require('express')
-var channels = require('./channels')
+var rooms = require('./rooms')
 
 router = express.Router()
-router.use('/api', channels)
+router.use('/api', rooms)
 
 module.exports = router;
