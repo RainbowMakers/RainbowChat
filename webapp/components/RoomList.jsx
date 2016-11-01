@@ -1,17 +1,13 @@
 import React from 'react'
+import chat from './chat'
 
 class Room extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            room: [
-                {
-                    name: "prueba",
-                }
-            ],
+            rooms: [ {name: 'hola' } ],
             newRoomName: ""
         };
-
         this.addRoomItem = this.addRoomItem.bind(this);
         this.clearList = this.clearList.bind(this);
         this.inputChanged = this.inputChanged.bind(this);
@@ -21,17 +17,28 @@ class Room extends React.Component {
         this.setState({ newRoomName: event.target.value });
     }
 
+    componentDidMount() {
+        chat.rooms(function(rooms){
+            this.setState({
+                rooms: rooms
+            })
+        }.bind(this))
+    }
+
     addRoomItem() {
         if(this.state.newRoomName) {
             let newRoomItem = { name: this.state.newRoomName };
-            this.setState({
-                room: this.state.room.concat([newRoomItem])
-            });
+            chat.createRoom(function(createdRoom){
+                alert('a')
+                this.setState({
+                    rooms: this.state.rooms.concat([createdRoom])
+                });
+            }.bind(this))
         }
     }
 
     clearList(event) {
-        this.setState({room: []});
+        this.setState({roms: []});
     }
 
     render() {
@@ -39,10 +46,10 @@ class Room extends React.Component {
             newRoomInput,
             newRoomAddButton,
             clearListButton;
-            for(var index = 0; index < this.state.room.length; index++) {
+            for(var index = 0; index < this.state.rooms.length; index++) {
                 roomComponents.push(
                     <RoomItem
-                    room={this.state.room[index]} />
+                    room={this.state.rooms[index]} />
                 );
             }
 
@@ -72,6 +79,7 @@ class RoomItem extends React.Component {
         return (
             <li>
             {this.props.room.name}
+            {this.props.room._id}
             </li>
         );
     }
