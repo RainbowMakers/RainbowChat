@@ -6,6 +6,7 @@ var server = http.Server(app);
 var httpProxy = require('http-proxy');
 var morgan = require('morgan')
 var io = require('socket.io')(server);
+var cors = require('cors')
 var apiRoutes = require('./api')
 
 io.on('connection', function(socket){
@@ -34,6 +35,7 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 
 
+app.use(cors());
 app.use(apiRoutes)
 
 
