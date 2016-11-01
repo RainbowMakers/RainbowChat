@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --reporter spec",
     "test_debug": "NODE_ENV=test ./node_modules/.bin/mocha debug --reporter spec",
-    "start": "node app.js",
+    "start": "./node_modules/concurrently/src/main.js 'node app.js' 'cd webapp && npm start'",
     "cover": "NODE_ENV=test istanbul cover _mocha",
     "coveralls": "NODE_ENV=test npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
@@ -45,6 +45,7 @@
     "socket.io-client": "^1.4.8"
   },
   "devDependencies": {
+    "concurrently": "^3.1.0",
     "coveralls": "^2.11.12",
     "istanbul": "^0.4.4",
     "mocha-lcov-reporter": "^1.2.0"
