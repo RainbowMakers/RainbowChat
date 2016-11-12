@@ -6,8 +6,8 @@
   "scripts": {
     "build": "./node_modules/.bin/cross-env BABEL_ENV=production ./node_modules/.bin/webpack --config webpack.config.production.js",
     "lint": "./node_modules/.bin/eslint .",
-    "test": "./node_modules/jest/bin/jest.js",
-    "test_debug": "node debug ./node_modules/jest/bin/jest.js"
+    "test": "./node_modules/mocha/bin/mocha",
+    "test_debug": "./node_modules/mocha/bin/mocha debug"
   },
   "author": "Mariano Schmidt",
   "license": "ISC",
@@ -19,7 +19,6 @@
   "devDependencies": {
     "babel-core": "^6.3.21",
     "babel-eslint": "^5.0.0-beta6",
-    "babel-jest": "^16.0.0",
     "babel-loader": "^6.2.0",
     "babel-plugin-react-transform": "^2.0.0-beta1",
     "babel-plugin-transform-runtime": "^6.3.13",
@@ -30,7 +29,8 @@
     "enzyme": "^2.5.1",
     "eslint": "^0.21.2",
     "eslint-plugin-react": "^2.3.0",
-    "jest": "^16.0.2",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.1.2",
     "react-addons-test-utils": "^15.3.2",
     "react-test-renderer": "^15.3.2",
     "react-transform-hmr": "^1.0.1",

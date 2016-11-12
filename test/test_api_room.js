@@ -1,5 +1,5 @@
 var server = require('../server').app
-var Channel = require('../models/room.js')
+var Room = require('../models/room.js')
 var TestHelper = require('./test_helper')
 var mongo =require('mongodb')
 var chai = TestHelper.chai
@@ -7,7 +7,7 @@ var assert = TestHelper.chai.assert
 
 
 describe("api/",function(){
-    var createChannel =  function() {
+    var createRoom =  function() {
         return chai.request(server).post('/api/rooms').send({
             'name': "sarasa"
         })
@@ -15,7 +15,7 @@ describe("api/",function(){
     var getRooms =  function() {
         return chai.request(server).get('/api/rooms')
     }
-    var getChannel =  function(id) {
+    var getRoom =  function(id) {
         return chai.request(server).get('/api/room/' + id)
     }
 
@@ -24,8 +24,9 @@ describe("api/",function(){
     });
 
     describe("GET /api/rooms",function(){
+
         it("should return 200 with array of rooms",function(done){
-            createChannel().end(function(err,res){
+            createRoom().end(function(err,res){
                 getRooms().end(function(err,res){
                     assert.equal(res.status,200)
                     assert.isArray(res.body)
@@ -35,10 +36,11 @@ describe("api/",function(){
                 })
             })
         })
+
     })
 
     describe("GET /api/room/:id",function(){
-        var room = new Channel({
+        var room = new Room({
             name: 'sarasa'
         }) 
         beforeEach(function(done){
@@ -48,8 +50,8 @@ describe("api/",function(){
         })
 
         it('should read room',function(done){ 
-            Channel.all(function(err,docs){
-                getChannel(mongo.ObjectId(docs[0]._id)).end(function(er,res){
+            Room.all(function(err,docs){
+                getRoom(mongo.ObjectId(docs[0]._id)).end(function(er,res){
                     assert.equal(res.body.name,'sarasa')
                     done();
                 })
@@ -66,23 +68,24 @@ describe("api/",function(){
     describe("POST /api/rooms",function() {
 
         it("should return 201 when room is created",function(done){
-            createChannel().end(function(err,res){
+            createRoom().end(function(err,res){
                 assert.equal(res.status,201)
                 done();
             })
         })
 
         it("should return document when room is created",function(done){
-            createChannel().end(function(err,res){
+            createRoom().end(function(err,res){
                 assert.equal(res.status,201)
                 done();
             })
         })
 
         it("should return document when room is created",function(done){
-            createChannel().end(function(err,res){
+            createRoom().end(function(err,res){
                 assert.equal(res.status,201)
                 assert.property(res.body,'_id')
+                assert.property(res.body,'name')
                 done();
             })
         })
