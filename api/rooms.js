@@ -17,9 +17,9 @@ router.get('/room/:id', function (req, res) {
 
 router.post('/rooms', function (req, res) {
     var room = new Room(req.body)
-    room.save(function(err,doc){
+    room.save().then(function(doc){
         res.status(201).send(doc)
-    });
+    })
 });
 
 module.exports = router

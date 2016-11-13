@@ -2,22 +2,25 @@
 var database = require('../database')
 var getCollection = database.getCollection('rooms')
 
-var Channel = function(data) {
+var Room = function(data) {
     this.name = data.name
 }
 
-Channel.prototype.save = function(callback) {
-    getCollection.then(function(collection){
-        var doc = { "name":  this.name }
-        collection.insertOne(doc,{w: 1},function(){
-            callback(null,doc)
+Room.prototype.save = function(){
+    return new Promise((resolve,reject) => {
+        getCollection.then((collection,err) => {
+            if (err) reject(err)
+            var doc = { "name":  this.name }
+            collection.insertOne(doc,{w: 1},function(){
+                resolve(doc)
+            })
         })
-    }.bind(this))
+    })
 }
 
-Channel.collection = getCollection
+Room.collection = getCollection
 
-Channel.all = function(callback){
+Room.all = function(callback){
     getCollection.then(function(collection){
         collection.find({}).toArray(function(err,docs) {
             callback(err,docs)
@@ -25,7 +28,7 @@ Channel.all = function(callback){
     })
 }
 
-Channel.count = function(callback){
+Room.count = function(callback){
     getCollection.then(function(collection){
         collection.count(function(err,result){
             if(err) throw err
@@ -34,7 +37,7 @@ Channel.count = function(callback){
     })
 } 
 
-Channel.findOne = function(query,callback) { 
+Room.findOne = function(query,callback) { 
     getCollection.then(function(collection){
         collection.findOne(query,function(err,docs) {
             if(err) return callback(err)
@@ -43,4 +46,4 @@ Channel.findOne = function(query,callback) {
     })
 }
 
-module.exports = Channel
+module.exports = Room

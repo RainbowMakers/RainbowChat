@@ -8,7 +8,6 @@ var chai = require('chai')
 var chaiAsPromised = require("chai-as-promised");
 
 chai.use(chaiAsPromised);
-var yyyyyyyyyyyyyy = require("chai-as-promised");
 var assert = require('chai').assert;
 var chaiHttp = require('chai-http');
 
@@ -18,7 +17,7 @@ var TestHelper = {}
 TestHelper.dropDatabase = function(done) {
     database.drop().then(function(result){
         assert(result)
-        done()
+        if(typeof done == 'function') done()
     })
 }
 

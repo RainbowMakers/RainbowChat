@@ -43,10 +43,9 @@ describe("api/",function(){
         var room = new Room({
             name: 'sarasa'
         }) 
-        beforeEach(function(done){
-            room.save(function(err,doc){
-                done();
-            })
+
+        beforeEach(function(){
+            assert.eventually.ok(Promise.resolve(room.save()))
         })
 
         it('should read room',function(done){ 
@@ -77,7 +76,7 @@ describe("api/",function(){
         it("should return document when room is created",function(done){
             createRoom().end(function(err,res){
                 assert.equal(res.status,201)
-                done();
+                done()
             })
         })
 

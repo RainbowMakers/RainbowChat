@@ -19,19 +19,13 @@ describe("Channel",function() {
         assert.equal(room.name,"sarasa")
     })
 
-    it("#save",function(done){
-        room.save(function(err,doc){
-            assert.equal(doc.name,"sarasa");
-            assert.equal(doc._id._bsontype,"ObjectID");
-            done();
-        })
+    it("#save",function(){
+        return assert.eventually.ok(room.save())
     })
 
     context('exists documents',function(){
-        beforeEach(function(done){
-            room.save(function(){
-                done();
-            })
+        beforeEach(function(){
+            return assert.eventually.ok(room.save())
         })
 
         it("Channel.find",function(done){
