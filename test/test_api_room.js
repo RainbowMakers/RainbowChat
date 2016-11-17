@@ -78,6 +78,7 @@ describe("api/",function(){
                 chai.request(server).put('/api/room/' + mongo.ObjectId(docs[0]['_id'])).send({
                     'name': "nuevo"
                 }).end(function(er,res){
+                    assert.equal(res.body.name,'nuevo')
                     Room.all(function(err,docs){
                         assert.equal(docs[0].name,'nuevo')
                         done()
