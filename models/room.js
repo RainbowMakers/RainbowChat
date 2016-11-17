@@ -9,22 +9,20 @@ var Room = function(data) {
 
 Room.prototype.save = function(){
     return new Promise((resolve,reject) => {
-        if(this._id){ //updated
-            getCollection.then((collection,err) => {
+        getCollection.then((collection,err) => {
+            if (err) reject(err)
+            if(this._id){ //updated
                 var doc = { "name":  this.name }
                 collection.update({"_id": this._id},{"$set": {name: this.name} },function(){
                     resolve(doc)
                 })
-            })
-        } else { //insert
-            getCollection.then((collection,err) => {
-                if (err) reject(err)
+            } else { //insert
                 var doc = { "name":  this.name }
                 collection.insertOne(doc,{w: 1},function(){
                     resolve(doc)
                 })
-            })
-        }
+            }
+        })
     })
 }
 
