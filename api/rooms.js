@@ -15,6 +15,15 @@ router.get('/room/:id', function (req, res) {
     })
 });
 
+router.put('/room/:id', function (req, res) {
+    Room.findOne({_id: mongo.ObjectId(req.params.id)}, function(err,room){
+        var updated_doc = Object.assign(room,req.body)
+        room = new Room(updated_doc)
+        room.save()
+        res.status(200).send(room)
+    })
+});
+
 router.post('/rooms', function (req, res) {
     var room = new Room(req.body)
     room.save().then(function(doc){

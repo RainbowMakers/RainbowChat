@@ -4,17 +4,27 @@ var getCollection = database.getCollection('rooms')
 
 var Room = function(data) {
     this.name = data.name
+    this._id = data._id
 }
 
 Room.prototype.save = function(){
     return new Promise((resolve,reject) => {
-        getCollection.then((collection,err) => {
-            if (err) reject(err)
-            var doc = { "name":  this.name }
-            collection.insertOne(doc,{w: 1},function(){
-                resolve(doc)
+        if(this._id){ //updated
+            getCollection.then((collection,err) => {
+                var doc = { "name":  this.name }
+                collection.update({"_id": this._id},{"$set": {name: this.name} },function(){
+                    resolve(doc)
+                })
             })
-        })
+        } else { //insert
+            getCollection.then((collection,err) => {
+                if (err) reject(err)
+                var doc = { "name":  this.name }
+                collection.insertOne(doc,{w: 1},function(){
+                    resolve(doc)
+                })
+            })
+        }
     })
 }
 
