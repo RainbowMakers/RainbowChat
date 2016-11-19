@@ -2,28 +2,29 @@
 var database = require('../database')
 var getCollection = database.getCollection('rooms')
 
-var Room = function(data) {
-    this.name = data.name
-    this._id = data._id
-}
-
-Room.prototype.save = function(){
-    return new Promise((resolve,reject) => {
-        getCollection.then((collection,err) => {
-            if (err) reject(err)
-            if(this._id){ //updated
-                var doc = { "name":  this.name }
-                collection.update({"_id": this._id},{"$set": {name: this.name} },function(){
-                    resolve(doc)
-                })
-            } else { //insert
-                var doc = { "name":  this.name }
-                collection.insertOne(doc,{w: 1},function(){
-                    resolve(doc)
-                })
-            }
+class Room {
+    constructor(attrs){
+        this.name = attrs.name
+        this._id = attrs._id
+    }
+    save() {
+        return new Promise((resolve,reject) => {
+            getCollection.then((collection,err) => {
+                if (err) reject(err)
+                if(this._id){ //updated
+                    var doc = { "name":  this.name }
+                    collection.update({"_id": this._id},{"$set": {name: this.name} },function(){
+                        resolve(doc)
+                    })
+                } else { //insert
+                    var doc = { "name":  this.name }
+                    collection.insertOne(doc,{w: 1},function(){
+                        resolve(doc)
+                    })
+                }
+            })
         })
-    })
+    }
 }
 
 Room.collection = getCollection
