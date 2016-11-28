@@ -18,20 +18,18 @@ class Room extends React.Component {
     }
 
     componentDidMount() {
-        chat.rooms(function(rooms){
+        chat.get("/rooms",function(res) {
             this.setState({
-                rooms: rooms
+                rooms: res
             })
         }.bind(this))
     }
 
     addRoomItem() {
         if(this.state.newRoomName) {
-            let newRoomItem = { name: this.state.newRoomName };
-            chat.createRoom(function(createdRoom){
-                alert('a')
+            chat.post("/rooms",{ name: this.state.newRoomName },function(res) {
                 this.setState({
-                    rooms: this.state.rooms.concat([createdRoom])
+                    rooms: this.state.rooms.concat([res])
                 });
             }.bind(this))
         }
