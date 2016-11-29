@@ -18,20 +18,20 @@ class Room extends React.Component {
     }
 
     componentDidMount() {
-        chat.get("/rooms",function(res) {
+        chat.get("/rooms",(res) => {
             this.setState({
                 rooms: res
             })
-        }.bind(this))
+        })
     }
 
     addRoomItem() {
         if(this.state.newRoomName) {
-            chat.post("/rooms",{ name: this.state.newRoomName },function(res) {
+            chat.post("/rooms",{ name: this.state.newRoomName },(res) => {
                 this.setState({
                     rooms: this.state.rooms.concat([res])
                 });
-            }.bind(this))
+            })
         }
     }
 
@@ -77,7 +77,6 @@ class RoomItem extends React.Component {
         return (
             <li>
             {this.props.room.name}
-            {this.props.room._id}
             </li>
         );
     }
