@@ -7,6 +7,13 @@ class Room {
         this.name = attrs.name
         this._id = attrs._id
     }
+
+    remove() { 
+        getCollection.then((collection,err) => {
+            collection.remove({_id: this._id})
+        })
+    }
+
     save() {
         return new Promise((resolve,reject) => {
             getCollection.then((collection,err) => {

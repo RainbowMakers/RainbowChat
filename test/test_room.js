@@ -1,17 +1,17 @@
 'use strict'; 
 
 var TestHelper = require('./test_helper')
-var Channel = require('../models/room')
+var Room = require('../models/room')
 var chai = TestHelper.chai
 var assert = TestHelper.chai.assert
 
 
-describe("Channel",function() {
+describe("Room",function() {
     beforeEach(function(done) {
         TestHelper.dropDatabase(done)
     });
 
-    var room = new Channel({
+    var room = new Room({
         name: 'sarasa'
     }) 
 
@@ -22,28 +22,48 @@ describe("Channel",function() {
     it("#save",function(){
         return assert.eventually.ok(room.save())
     })
-
-    context('exists documents',function(){
+    context('destroy room',function() {
         beforeEach(function(){
             return assert.eventually.ok(room.save())
         })
 
-        it("Channel.find",function(done){
-            Channel.findOne({"name":"sarasa"}, function(err,doc){
+        it("channel#remove",function(done){
+            Room.findOne({"name":"sarasa"}, function(err,doc){
+                room = new Room(doc)
+                room.remove()
+                Room.count(function(result){
+                    assert.equal(result,0)
+                    done()
+                })
+            })
+        })
+
+    })
+
+    context('exists documents',function(){
+        var room = new Room({
+            name: 'sarasa'
+        }) 
+        beforeEach(function(){
+            return assert.eventually.ok(room.save())
+        })
+
+        it("Room.find",function(done){
+            Room.findOne({"name":"sarasa"}, function(err,doc){
                 assert.equal(doc.name,"sarasa");
                 done();
             })
         })
 
-        it("Channel.all",function(done){
-            Channel.all(function(err,docs){
+        it("Room.all",function(done){
+            Room.all(function(err,docs){
                 assert.equal(docs[0].name,"sarasa")
                 done();
             })
         })
 
         it("collection/count",function(done){
-            Channel.count(function(result){
+            Room.count(function(result){
                 assert.equal(result,1)
                 done()
             })
